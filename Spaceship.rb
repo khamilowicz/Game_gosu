@@ -1,7 +1,11 @@
 require "gosu"
 require 'json'
+require './modules'
 
 class Spaceship
+
+  include Steerable
+  include Movable
 
 
   @@spaceships = []
@@ -11,7 +15,7 @@ class Spaceship
     @x = @y = 100.0
     @angle = @vel = 0.0
     @d_angle = -90.0
-    @image = Gosu::Image.new(window, "./spaceship.png", true)
+    @image = Gosu::Image.new(window, "./img/spaceship.png", true)
     #@image.rect 0,0, 200,100, color: :white, fill: true, dest_select: :transparent
     @@spaceships << self
 
@@ -24,44 +28,15 @@ class Spaceship
     end
   end
 
-	def self.spaceships
-					@@spaceships
-	end
-
-  def velx
-    Gosu::offset_x(@angle, @vel)
+  def self.spaceships
+    @@spaceships
   end
 
-  def vely
-    Gosu::offset_y(@angle, @vel)
-  end
 
   def fire
-    Photon.new(@window, @x,@y, @angle)
+    Photon.new(@window, @x,@y,@angle)
   end
 
-  def turn_right
-    @angle += 4.5
-  end
-
-  def turn_left
-    @angle -= 4.5
-  end
-
-  def accelerate
-    @vel += 0.5 if @vel < 5
-  end
-
-  def break
-    @vel -= 0.5 if @vel >= 0.5
-  end
-
-  def move
-    @x += Gosu::offset_x(@angle, @vel)
-    @y += Gosu::offset_y(@angle, @vel)
-    #@x %= 640
-    #@y %= 480
-  end
 
   def draw
     @image.draw_rot @x, @y, 1, @angle + @d_angle

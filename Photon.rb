@@ -2,6 +2,8 @@ require 'gosu'
 
 class Photon
 
+  include Movable
+
   @@photons = []
 
   def self.move 
@@ -24,23 +26,20 @@ class Photon
     @image.draw @x, @y, 3
   end
 
-  def initialize(window, x,y,angle)
-    @x = x
-    @y = y
-    @angle = angle
-    @vel = 10.0
+  def initialize(window, pos_x,pos_y,angle)
+    move_to(pos_x, pos_y, angle)
     @d_angle = -90.0
-    @image = Gosu::Image.new(window, "./photon.png", true)
+		@vel = 10
+    @image = Gosu::Image.new(window, "./img/photon.png", true)
     @@photons << self
-
   end
 
   def move
-    @x += Gosu::offset_x(@angle, @vel)
-    @y += Gosu::offset_y(@angle, @vel)
 
-    unless @x.between?(0.0, 640.0) && @y.between?(0.0, 480.0)
-      delete
+    move_with_block do |x,y|
+      unless x.between?(0.0, 640.0) && y.between?(0.0, 480.0)
+        delete
+      end
     end
   end
 
@@ -48,4 +47,3 @@ class Photon
     @@photons.delete self
   end
 end
-

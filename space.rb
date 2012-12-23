@@ -2,7 +2,7 @@ require "gosu"
 
 class Space
   def initialize(window)
-    @image = Gosu::Image.new(window, "./galaxy.jpg", true)
+    @image = Gosu::Image.new(window, "./img/galaxy.jpg", true)
     @y = @x = @z = 0
     @offset = 60
   end
