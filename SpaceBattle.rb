@@ -1,20 +1,17 @@
 require 'gosu'
 require "texplay"
-require "./Spaceship.rb"
-require "./Photon.rb"
-require "./space.rb"
-require "./spaceSocket.rb"
+require "./classes"
 
 class SpaceBattle < Gosu::Window
   def initialize()
     super 640, 480, false
     self.caption = "Gosu tutorial game"
 
-    @player = Spaceship.new(self)
-    @player_2 = Spaceship.new(self,40,80)
+    @player = Spaceship.new(self,0,100,100)
+    @player_2 = Spaceship.new(self,0,100,100)
     @space = Space.new(self)
     @block = false
-    start_socket
+		start_socket
   end
 
   def update
@@ -41,7 +38,7 @@ class SpaceBattle < Gosu::Window
     end
 
 		@player.move
-    @space.move @player, Spaceship
+		@space.move @player, Spaceship.all
     Photon.move
 		multiplayer
 		@player_2.move

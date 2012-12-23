@@ -1,0 +1,5 @@
+require "./classes/Photon.rb"
+require "./classes/Spaceship.rb"
+require "./classes/spaceobject.rb"
+require "./classes/space.rb"
+require "./classes/Photon.rb"

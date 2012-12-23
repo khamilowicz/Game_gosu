@@ -1,8 +1,5 @@
 module Steerable
 
-  @angle = 0
-  @vel = 0
-
   def turn_right
     @angle += 4.5
   end
@@ -12,7 +9,7 @@ module Steerable
   end
 
   def accelerate
-    @vel += 0.5 if @vel < 5
+    @vel += 0.5 if @vel < @maxVel
   end
 
   def break
