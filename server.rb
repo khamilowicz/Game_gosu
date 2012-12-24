@@ -1,33 +1,52 @@
 require "socket"
 
-def start_server
+class SpaceServer
 
-  server = TCPServer.new 8000
-  puts "Server is on"
-  @@clients = []
+  def initialize
+    @echo = false
+    @@clients = []
+  end
 
-  loop do
+  def set_echo_server
+    @echo = true
+  end
 
-    Thread.start(server.accept) do |client|
-      @@clients << client
-      while @@clients.size < 2
-      end
+	def set_broadcast_server
+					@echo = false
+	end
 
-      broadcast = @@clients.reject{|i| i == client}
+	def echo?
+					@echo
+	end
 
-      while line = client.gets
-        broadcast.each do |res_client|
-          res_client.puts line
+  def start
+
+    server = TCPServer.new 8000
+    puts "Server is on"
+
+    loop do
+
+      Thread.start(server.accept) do |client|
+        @@clients << client
+        until @@clients.size > 1 || echo?
+								p 'waiting for client/s'
         end
-      end	
-      client.close
-      puts "client close"
+
+        broadcast = echo? ? @@clients : @@clients.reject{|i| i == client}
+
+        while line = client.gets
+          broadcast.each do |res_client|
+            res_client.puts line 
+          end
+        end	
+        client.close
+        puts "client close"
+      end
     end
   end
+
+  def stop_server
+    Thread.kill(@server)
+  end
+
 end
-
-def stop_server
-end
-
-start_server
-

@@ -52,4 +52,14 @@ class SpaceObject
   def delete
     self.class.container.delete self
   end
+
+	def to_s
+					"#{self.class} number #{@id}\n Position: x: \t#{@x},\t y: \t#{@y}\n \t" +
+					"vel: \t#{@vel},\t ang: \t#{@ang}\n"
+	end
+
+	def self.find_by_id id 
+          all.select{|obj| obj.id == id}.first
+	end
+
 end

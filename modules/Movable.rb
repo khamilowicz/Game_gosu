@@ -23,6 +23,5 @@ module Movable
     @y += Gosu::offset_y(@angle, @vel)
 
     yield @x, @y, @angle, @vel if block_given?
-
   end
 end

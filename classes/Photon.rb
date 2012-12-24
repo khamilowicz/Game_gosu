@@ -1,6 +1,6 @@
 require "./classes/spaceobject.rb"
 require "./modules/Movable.rb"
-require "./modules/data.rb"
+require "./modules/datable.rb"
 
 class Photon < SpaceObject
 
@@ -9,7 +9,7 @@ class Photon < SpaceObject
 	include Datable::Instance
 	
 
-  def initialize(window, x,y,angle)
+  def initialize(window, x=0,y=0,angle=0)
     super(window, "./img/photon.png", x,y, 8.0, angle)
   end
 

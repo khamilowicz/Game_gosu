@@ -3,7 +3,7 @@ require "./classes/spaceobject.rb"
 require "./modules/Movable.rb"
 require "./modules/Steerable.rb"
 require "./classes/spaceSocket.rb"
-require "./modules/data.rb"
+require "./modules/datable.rb"
 
 class Spaceship < SpaceObject
 
@@ -21,5 +21,5 @@ class Spaceship < SpaceObject
     Photon.new(@window, @x,@y,@angle)
   end
 
-end
 
+end

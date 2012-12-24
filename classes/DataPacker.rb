@@ -3,7 +3,7 @@ require "json"
 
 class DataPacker
 
-				attr_reader :available
+  attr_reader :available
   def initialize
     @data = {}
   end
@@ -35,19 +35,38 @@ class DataPacker
     data.to_json
   end
 
-	def flush_data
+  def flush_data
     data = @data 
     @data = {}
     data
+  end
+
+	def available?
+					@available 
 	end
 
   def unpack_data data
-					@available = true
-					begin
-    @data = JSON.load(data)
-					rescue
-									@available = false
-					end
+    @available = true
+    begin
+      @data = JSON.load(data)
+    rescue
+      @available = false
+    end
+  end
+
+  def to_s
+    ret = ""
+    @data.each do |key, value|
+      ret += "Object type: #{key}\n"
+
+      value.each do |obj|
+        obj.each do |k,v|
+          ret += "\t #{k}:\t #{v}\n"
+        end
+				ret+= "\n"
+      end
+    end
+    ret
   end
 
 end	
