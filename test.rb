@@ -21,6 +21,9 @@ datapacker = DataPacker.new
 datapacker.add_data Spaceship
 datapacker.add_data Photon
 
+p "Creation"
+p Photon.all
+
 send_data datapacker.flush_data_to_json
 
 begin
@@ -32,11 +35,14 @@ Photon.each	do |p|
 end
 
 p "After move"
-moved = Photon.all.dup
+p Photon.all
 
 data = datapacker.flush_data
 Spaceship.read_data_for_all data
 Photon.read_data_for_all data
+
+p "Received data"
+p Photon.all
 
 
 Thread.kill(server_thread)
