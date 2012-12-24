@@ -9,6 +9,8 @@ class SpaceBattle < Gosu::Window
     self.caption = "Gosu tutorial game"
 
     @player = Spaceship.new(self,0,100,100)
+		@player.status = 'master'
+
     @player_2 = Spaceship.new(self,0,100,100)
     @space = Space.new(self)
 		Photon.set_default_window self
@@ -42,10 +44,10 @@ class SpaceBattle < Gosu::Window
     end
 
     @player.move
-    @space.move @player, Spaceship.all
+    #@space.move @player, Spaceship.all
+    @space.move @player, @player_2
     Photon.move
     multiplayer
-    @player_2.move
   end
 
   def multiplayer
@@ -61,15 +63,12 @@ class SpaceBattle < Gosu::Window
 
 		@player_2.data = all_data['Spaceship'].first unless all_data['Spaceship'].nil?
 		Photon.read_data_for_all all_data
-    #[Spaceship, Photon].each do |c|
-      #c.read_data_for_all all_data
-    #end
 
   end
 
   def draw
 
-    if (Time.now.to_f - @time_mem) > 0.003
+    if (Time.now.to_f - @time_mem) > 0.01
       @player.draw
       @player_2.draw
       @space.draw

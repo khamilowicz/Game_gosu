@@ -12,14 +12,15 @@ class Spaceship < SpaceObject
   extend Datable::Classable
   include Datable::Instance
 
+	attr_accessor :status
+
   def initialize(window, vel=0.0, x=0.0, y=0.0)
     super(window, "./img/spaceship.png", x, y, vel, 0.0, -90)
     @maxVel = 5.0
+		@status = 'slave'
   end
 
   def fire
     Photon.new(@window, @x,@y,@angle)
   end
-
-
 end

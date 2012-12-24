@@ -2,20 +2,7 @@ module Datable
   module Instance
 
     def data
-
-    @data_timer ||= 0
-
-      @data_timer+=1
-      if @data_timer%10 == 0
-
-        ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
-        @data_timer = 1
-      else
-        ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
-        #ret = {'id' => id, 'vel' => vel, 'x' => x, 'y' => y, 'z' => z}
-      end
-
-			ret
+      {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
     end
 
     def data= m_data
