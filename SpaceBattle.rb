@@ -69,7 +69,7 @@ class SpaceBattle < Gosu::Window
       @player.draw
       @player_2.draw
       @space.draw
-      Photon.draw
+      Photo.draw
       @time_mem = Time.now.to_f
     end
   end
