@@ -11,14 +11,14 @@ module Datable
         ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
         @data_timer = 1
       else
-        ret = {'id' => id, 'vel' => vel, 'x' => x, 'y' => y, 'z' => z}
+        ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
+        #ret = {'id' => id, 'vel' => vel, 'x' => x, 'y' => y, 'z' => z}
       end
 
 			ret
     end
 
     def data= m_data
-
 
       m_data.each do |attr, value|
         send "#{attr}=", value

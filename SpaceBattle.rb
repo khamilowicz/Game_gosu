@@ -58,9 +58,12 @@ class SpaceBattle < Gosu::Window
 
     @datapacker.unpack_data(data)
     all_data = @datapacker.flush_data
-    [Spaceship, Photon].each do |c|
-      c.read_data_for_all all_data
-    end
+
+		@player_2.data = all_data['Spaceship'].first unless all_data['Spaceship'].nil?
+		Photon.read_data_for_all all_data
+    #[Spaceship, Photon].each do |c|
+      #c.read_data_for_all all_data
+    #end
 
   end
 

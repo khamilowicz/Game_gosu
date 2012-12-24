@@ -7,8 +7,12 @@ class SpaceObject
 
   @@container = {}
 
-  attr_accessor :x, :y, :z, :id, :vel, :angle
+  attr_accessor :x, :y, :z, :id, :vel
+	attr_writer :angle
 
+	def angle
+					@angle.round(2)
+	end
 
   def initialize(window, image_path, x, y, vel =0.0, angle=0.0, d_angle =0.0, z=1)
     @window = window
