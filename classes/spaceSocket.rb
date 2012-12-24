@@ -22,7 +22,5 @@ def get_data
     rescue Timeout::Error
     end
 
-  p "z get data: #{data}"
-
   data
 end

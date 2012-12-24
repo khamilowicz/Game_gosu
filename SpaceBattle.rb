@@ -1,6 +1,7 @@
 require 'gosu'
 require "texplay"
 require "./classes"
+require "./classes/DataPacker.rb"
 
 class SpaceBattle < Gosu::Window
   def initialize()
@@ -10,8 +11,10 @@ class SpaceBattle < Gosu::Window
     @player = Spaceship.new(self,0,100,100)
     @player_2 = Spaceship.new(self,0,100,100)
     @space = Space.new(self)
+    @datapacker = DataPacker.new
     @block = false
-		start_socket
+    @time_mem = 0.0
+    start_socket
   end
 
   def update
@@ -37,25 +40,38 @@ class SpaceBattle < Gosu::Window
       @player.accelerate 
     end
 
-		@player.move
-		@space.move @player, Spaceship.all
+    @player.move
+    @space.move @player, Spaceship.all
     Photon.move
-		multiplayer
-		@player_2.move
+    multiplayer
+    @player_2.move
   end
 
-	def multiplayer
+  def multiplayer
 
-    send_data @player.data
-    @player_2.data = get_data
-		
-	end
+    @datapacker.add_data @player
+    @datapacker.add_data Photon
+
+    send_data @datapacker.flush_data_to_json
+    data = get_data
+
+    @datapacker.unpack_data(data)
+    all_data = @datapacker.flush_data
+    [Spaceship, Photon].each do |c|
+      c.read_data_for_all all_data
+    end
+
+  end
 
   def draw
-    @player.draw
-    @player_2.draw
-    @space.draw
-    Photon.draw
+
+    if (Time.now.to_f - @time_mem) > 0.003
+      @player.draw
+      @player_2.draw
+      @space.draw
+      Photon.draw
+      @time_mem = Time.now.to_f
+    end
   end
 
   def button_down(id)
