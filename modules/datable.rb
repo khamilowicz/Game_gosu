@@ -1,18 +1,28 @@
 module Datable
   module Instance
+
     def data
-      {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
+
+    @data_timer ||= 0
+
+      @data_timer+=1
+      if @data_timer%10 == 0
+
+        ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
+        @data_timer = 1
+      else
+        ret = {'id' => id, 'vel' => vel, 'x' => x, 'y' => y, 'z' => z}
+      end
+
+			ret
     end
 
     def data= m_data
 
-      @vel = m_data['vel']
-      @angle = m_data['angle']
-      @id = m_data['id']
 
-      @x = m_data['x']
-      @y = m_data['y']
-      @z = m_data['z']
+      m_data.each do |attr, value|
+        send "#{attr}=", value
+      end
     end
   end
 
@@ -27,7 +37,7 @@ module Datable
           curr_id = ins_data['id']
           curr_obj = self.find_by_id curr_id
           if curr_obj.nil?
-            self.new DefaultWindow
+            self.new self.get_default_window 
             curr_obj = self.find_by_id curr_id
           end
           curr_obj.data = ins_data

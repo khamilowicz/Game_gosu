@@ -10,6 +10,7 @@ end
 def start_socket
   @socket = TCPSocket.new 'localhost', 8000
   @socket_on = true
+	p 'Socket started'
 end
 
 

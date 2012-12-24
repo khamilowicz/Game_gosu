@@ -17,6 +17,7 @@ sp_2 = Spaceship.new(window)
 sp_2.fire
 sp_2.fire
 
+
 datapacker = DataPacker.new
 datapacker.add_data Spaceship
 datapacker.add_data Photon

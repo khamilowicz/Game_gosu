@@ -23,7 +23,6 @@ class Photon < SpaceObject
 
   def self.move 
     self.each do |photon|
-						p photon
       photon.move
     end
   end

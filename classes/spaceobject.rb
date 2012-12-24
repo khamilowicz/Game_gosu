@@ -3,10 +3,12 @@ require "gosu"
 class SpaceObject
 
   @@id_counter = 0
+	@@defautl_window = nil
 
   @@container = {}
 
   attr_accessor :x, :y, :z, :id, :vel, :angle
+
 
   def initialize(window, image_path, x, y, vel =0.0, angle=0.0, d_angle =0.0, z=1)
     @window = window
@@ -16,6 +18,14 @@ class SpaceObject
     @id = @@id_counter
 		add_to_container @id, self
   end
+
+	def self.set_default_window window
+					@@defautl_window = window
+	end
+
+	def self.get_default_window 
+					@@defautl_window
+	end
 
 	def self.container
     @@container.select{|klass, objects| klass.to_s == self.name}.values.flatten

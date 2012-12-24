@@ -2,9 +2,9 @@ require "socket"
 
 class SpaceServer
 
+    @@clients = []
   def initialize
     @echo = false
-    @@clients = []
   end
 
   def set_echo_server
@@ -29,7 +29,6 @@ class SpaceServer
       Thread.start(server.accept) do |client|
         @@clients << client
         until @@clients.size > 1 || echo?
-								p 'waiting for client/s'
         end
 
         broadcast = echo? ? @@clients : @@clients.reject{|i| i == client}

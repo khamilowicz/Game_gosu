@@ -11,6 +11,7 @@ class SpaceBattle < Gosu::Window
     @player = Spaceship.new(self,0,100,100)
     @player_2 = Spaceship.new(self,0,100,100)
     @space = Space.new(self)
+		Photon.set_default_window self
     @datapacker = DataPacker.new
     @block = false
     @time_mem = 0.0
@@ -69,7 +70,7 @@ class SpaceBattle < Gosu::Window
       @player.draw
       @player_2.draw
       @space.draw
-      Photo.draw
+      Photon.draw
       @time_mem = Time.now.to_f
     end
   end
