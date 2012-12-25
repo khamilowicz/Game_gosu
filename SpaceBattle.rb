@@ -8,13 +8,15 @@ class SpaceBattle < Gosu::Window
     super 640, 480, false
     self.caption = "Gosu tutorial game"
 
-    @player = Spaceship.new(self,0,100,100)
+    @player = Spaceship.new(self,0,320,240)
 		@player.status = 'master'
 
-    @player_2 = Spaceship.new(self,0,100,100)
+    @player_2 = Spaceship.new(self,0,320,240)
+
     @space = Space.new(self)
 		Photon.set_default_window self
     @datapacker = DataPacker.new
+
     @block = false
     @time_mem = 0.0
     start_socket
@@ -39,15 +41,21 @@ class SpaceBattle < Gosu::Window
       @player.break 
     end
 
+    if button_down? Gosu::KbP then
+						p @player
+						p @player_2
+						p @all_data
+    end
     if button_down? Gosu::KbUp or button_down? Gosu::GpUp then
       @player.accelerate 
     end
 
-    @player.move
-    #@space.move @player, Spaceship.all
-    @space.move @player, @player_2
+		multiplayer
+		@player.move
+		@player_2.move
     Photon.move
-    multiplayer
+		@space.move Spaceship
+		
   end
 
   def multiplayer
@@ -56,13 +64,14 @@ class SpaceBattle < Gosu::Window
     @datapacker.add_data Photon
 
     send_data @datapacker.flush_data_to_json
-    data = get_data
+    @datapacker.unpack_data(get_data)
 
-    @datapacker.unpack_data(data)
-    all_data = @datapacker.flush_data
+    @all_data = @datapacker.flush_data
+		 
 
-		@player_2.data = all_data['Spaceship'].first unless all_data['Spaceship'].nil?
-		Photon.read_data_for_all all_data
+		#@player_2.data = all_data['Spaceship'].first unless all_data['Spaceship'].nil?
+		Photon.read_data_for_all @all_data
+		Spaceship.read_data_for_all @all_data
 
   end
 

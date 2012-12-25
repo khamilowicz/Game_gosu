@@ -41,9 +41,9 @@ class DataPacker
     data
   end
 
-	def available?
-					@available 
-	end
+  def available?
+    @available 
+  end
 
   def unpack_data data
     @available = true
@@ -63,10 +63,9 @@ class DataPacker
         obj.each do |k,v|
           ret += "\t #{k}:\t #{v}\n"
         end
-				ret+= "\n"
+        ret+= "\n"
       end
     end
     ret
   end
-
 end	

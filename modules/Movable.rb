@@ -19,9 +19,18 @@ module Movable
   end
 
   def move_with_block
-    @x += Gosu::offset_x(@angle, @vel)
-    @y += Gosu::offset_y(@angle, @vel)
+
+      @x += velx 
+      @y += vely 
+			@x_rel += velx
+			@y_rel += vely
 
     yield @x, @y, @angle, @vel if block_given?
+  end
+
+  def self.move 
+    each do |obj|
+      obj.move
+    end
   end
 end

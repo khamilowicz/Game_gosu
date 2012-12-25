@@ -1,29 +1,21 @@
 require "gosu"
 
 class Space
+  attr_reader :x, :y
   def initialize(window)
     @image = Gosu::Image.new(window, "./img/galaxy.jpg", true)
     @y = @x = @z = 0
     @offset = 60
   end
 
-  def move player, all_players
+  def move all_players
+    player = all_players.find_master
+    @x -= player.velx
+    @y -= player.vely
 
-    unless player.x.between?(@offset,640 - @offset)
-      @x -= player.velx
-			player.x -= player.velx
-      all_players.each do |playa|
-        playa.x -= player.velx
-      end
-
-    end
-
-    unless player.y.between?(@offset,480 - @offset)
-      @y -= player.vely
-			player.y -= player.vely
-      all_players.each do |playa|
-        playa.y -= player.vely
-      end
+    all_players.each do |obj|
+        obj.x_rel -=  player.velx
+        obj.y_rel -=  player.vely
     end
   end
 

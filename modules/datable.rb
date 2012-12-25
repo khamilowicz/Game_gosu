@@ -2,22 +2,25 @@ module Datable
   module Instance
 
     def data
-      {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y, 'z' => z}
+      ret = { 'id' => 2, 'vel' => vel, 'angle' => angle, 'x' =>  x, 'y' => y} if self.class == Spaceship
+      ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y } if self.class == Photon
+      ret
     end
 
     def data= m_data
-
-      m_data.each do |attr, value|
-        send "#{attr}=", value
+      unless m_data.nil?
+        m_data.each do |attr, value|
+          send "#{attr}=", value
+        end
       end
     end
   end
 
   module Classable
     def read_data_for_all t_all_data
-      c_name = self.name
+      begin
+        c_name = self.name
 
-      unless t_all_data[c_name].nil?
         class_data = t_all_data[c_name]
 
         class_data.each do |ins_data|
@@ -29,6 +32,7 @@ module Datable
           end
           curr_obj.data = ins_data
         end
+      rescue
       end
     end
   end
