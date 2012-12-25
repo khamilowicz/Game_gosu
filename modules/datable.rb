@@ -2,12 +2,12 @@ module Datable
   module Instance
 
     def data
-			ret = {}
-			data_to_send.each do |d|
-							ret[d] = send d
-			end
-			ret['id'] = 2 if self.master?
-			ret
+      ret = {}
+      data_to_send.each do |d|
+        ret[d] = send d
+      end
+      ret['id'] = 2 if self.master?
+      ret
     end
 
     def data= m_data
@@ -31,12 +31,13 @@ module Datable
           curr_obj = self.find_by_id curr_id
 
           if curr_obj.nil?
-            self.new self.get_default_window
-						#DEBUGGING
-						p 'created'
-						p ins_data
-          end
+            self.new self.get_default_window, ins_data['x'], ins_data['y'], ins_data['angle']
+            #DEBUGGING
+            p 'created'
+            p ins_data
+          else
             curr_obj.data = ins_data
+          end
         end
       rescue
       end
