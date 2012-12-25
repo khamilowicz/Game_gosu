@@ -23,6 +23,10 @@ class Spaceship < SpaceObject
     @hitpoints = 3
   end
 
+	def data_to_send
+					super << 'hitpoints'
+	end
+
   def fire
     Photon.new(@window, @x,@y,@angle)
   end

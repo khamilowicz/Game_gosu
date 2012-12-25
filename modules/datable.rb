@@ -2,9 +2,12 @@ module Datable
   module Instance
 
     def data
-      s_id = id
-      s_id = 2 if self.master? 
-      { 'id' => s_id, 'angle' => angle, 'x' => x, 'y' => y}
+			ret = {}
+			data_to_send.each do |d|
+							ret[d] = send d
+			end
+			ret['id'] = 2 if self.master?
+			ret
     end
 
     def data= m_data
@@ -25,15 +28,15 @@ module Datable
 
         class_data.each do |ins_data|
           curr_id = ins_data['id']
-					p curr_id
           curr_obj = self.find_by_id curr_id
 
           if curr_obj.nil?
-            self.new self.get_default_window, ins_data['x'], ins_data['y'], ins_data['angle']
-            p 'creation'
-          else
-            curr_obj.data = ins_data
+            self.new self.get_default_window
+						#DEBUGGING
+						p 'created'
+						p ins_data
           end
+            curr_obj.data = ins_data
         end
       rescue
       end

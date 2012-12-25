@@ -3,8 +3,8 @@ require "gosu"
 class SpaceObject
 
   @@id_counter = 0
-  @@default_window = nil   
-	@@container = {}
+  @@default_window = nil  
+  @@container = {}
 
 
   attr_accessor :x, :y, :z, :id, :vel, :status, :x_rel, :y_rel, :angle
@@ -21,6 +21,9 @@ class SpaceObject
     add_to_container @id, self
   end
 
+  def data_to_send
+    ['x', 'y', 'angle', 'id']
+  end
 
   def add_to_container id, obj
     if not @@container[obj.class].nil?

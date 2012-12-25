@@ -15,19 +15,18 @@ class Photon < SpaceObject
   end
 
   def move
-    move_with_block do |x,y|
-      unless x.between?(-1500.0, 1500.0) && y.between?(-1500.0, 1500.0)
-        delete
-      end
+    super
+    unless x.between?(-500.0, 500.0) && y.between?(-500.0, 500.0)
+      delete
     end
   end
 
   def hit objects
     objects.each do |object|
       if object.x.between?(x-5,x+5) && object.y.between?(y-5,y+5)
-							p 'HIT'
+        p 'HIT'
         object.hitpoints -= 1
-				p "#{object.name} was HIT! Now he has #{object.hitpoints}"
+        p "#{object.name} was HIT! Now he has #{object.hitpoints}"
       end
     end
   end
