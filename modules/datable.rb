@@ -28,10 +28,11 @@ module Datable
           curr_obj = self.find_by_id curr_id
 
           if curr_obj.nil?
-            self.new self.get_default_window 
-            curr_obj = self.find_by_id curr_id
+            self.new self.get_default_window, ins_data['x'], ins_data['y'], ins_data['angle']
+              #curr_obj = self.find_by_id curr_id
+          else
+            curr_obj.data = ins_data
           end
-          curr_obj.data = ins_data
         end
       rescue
       end
