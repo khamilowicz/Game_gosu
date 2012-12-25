@@ -2,9 +2,9 @@ module Datable
   module Instance
 
     def data
-      ret = { 'id' => 2, 'vel' => vel, 'angle' => angle, 'x' =>  x, 'y' => y} if self.class == Spaceship
-      ret = {'id' => id, 'vel' => vel, 'angle' => angle, 'x' => x, 'y' => y } if self.class == Photon
-      ret
+      s_id = id
+      s_id = 2 if self.master? 
+      { 'id' => s_id, 'angle' => angle, 'x' => x, 'y' => y} 
     end
 
     def data= m_data
@@ -26,6 +26,7 @@ module Datable
         class_data.each do |ins_data|
           curr_id = ins_data['id']
           curr_obj = self.find_by_id curr_id
+
           if curr_obj.nil?
             self.new self.get_default_window 
             curr_obj = self.find_by_id curr_id

@@ -4,7 +4,8 @@ require "./modules/datable.rb"
 
 class Photon < SpaceObject
 
-  include Movable
+  include Movable::Instance
+  extend Movable::Classable
 	extend Datable::Classable
 	include Datable::Instance
 	
@@ -15,15 +16,9 @@ class Photon < SpaceObject
 
   def move
     move_with_block do |x,y|
-      unless x.between?(0.0, 640.0) && y.between?(0.0, 480.0)
+      unless x.between?(-1500.0, 1500.0) && y.between?(-1500.0, 1500.0)
         delete
       end
-    end
-  end
-
-  def self.move 
-    self.each do |photon|
-      photon.move
     end
   end
 end

@@ -8,14 +8,18 @@ class Space
     @offset = 60
   end
 
-  def move all_players
-    player = all_players.find_master
-    @x -= player.velx
-    @y -= player.vely
+  def move all_objects
 
-    all_players.each do |obj|
-        obj.x_rel -=  player.velx
-        obj.y_rel -=  player.vely
+    player = all_objects.find_master
+
+    unless player.nil?
+      @x -= player.velx
+      @y -= player.vely
+    end
+
+    all_objects.each do |obj|
+      obj.x_rel = obj.x + @x 
+      obj.y_rel = obj.y + @y
     end
   end
 
