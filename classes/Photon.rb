@@ -17,8 +17,10 @@ class Photon < SpaceObject
   def move
     move_with_block do |x,y|
       unless x.between?(-1500.0, 1500.0) && y.between?(-1500.0, 1500.0)
-        delete
+        #delete
       end
     end
+		print "#{x}, #{y}, #{x_rel}, #{y_rel}\n"
+
   end
 end

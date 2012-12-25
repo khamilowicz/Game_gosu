@@ -17,6 +17,7 @@ class Space
       @y -= player.vely
     end
 
+
     all_objects.each do |obj|
       obj.x_rel = obj.x + @x 
       obj.y_rel = obj.y + @y

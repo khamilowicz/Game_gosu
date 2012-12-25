@@ -12,7 +12,7 @@ class SpaceObject
   def initialize(window, image_path, x, y, vel =0.0, angle=0.0, d_angle =0.0, z=1)
     @window = window
     @x, @y, @z, @vel, @angle, @d_angle = x, y, z, vel, angle, d_angle
-    @x_rel, @y_rel = @x, @y
+		@x_rel, @y_rel = @x, @y
 
     @status ='slave'
     @image = Gosu::Image.new(window, image_path, true)
@@ -56,13 +56,13 @@ class SpaceObject
   end
 
 
-  def master?
-    status == 'master'
-  end
+	def master?
+					status == 'master'
+	end
 
-  def slave?
-    status == 'slave'
-  end
+	def slave?
+					status == 'slave'
+	end
 
   def draw 
     @image.draw_rot @x_rel, @y_rel, @z, @angle + @d_angle

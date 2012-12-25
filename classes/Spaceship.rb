@@ -21,7 +21,7 @@ class Spaceship < SpaceObject
   end
 
   def fire
-    Photon.new(@window, @x_rel,@y_rel,@angle)
+    Photon.new(@window, @x,@y,@angle)
   end
 
   def keyboard window

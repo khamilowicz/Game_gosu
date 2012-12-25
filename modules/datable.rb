@@ -4,7 +4,7 @@ module Datable
     def data
       s_id = id
       s_id = 2 if self.master? 
-      { 'id' => s_id, 'angle' => angle, 'x' => x, 'y' => y} 
+      { 'id' => s_id, 'angle' => angle, 'x' =>  x, 'y' =>  y, 'x_rel' => 320 + x, 'y_rel' => 240 + y_rel} 
     end
 
     def data= m_data
