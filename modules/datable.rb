@@ -23,8 +23,6 @@ module Datable
 
         class_data = t_all_data[c_name]
 
-				p class_data.keys if c_name == 'Photon'
-
         class_data.each do |ins_data|
           curr_id = ins_data['id']
 					p curr_id
