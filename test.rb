@@ -6,40 +6,29 @@ require "./classes/DataPacker"
 
 server = SpaceServer.new
 server_thread = Thread.new{server.start}
-server.set_echo_server
-game_thread = Thread.new { game}
 
-def game
   sleep(0.1)
   window = Gosu::Window.new(640,480,false)
-  Photon.set_default_window = window
+  Photon.set_default_window window
   sp = Spaceship.new(window)
   sp.status = 'master'
-  sp.fire
   sp_2 = Spaceship.new(window)
   sp_2.fire
   sp_2.fire
 
-  sp.accelerate
+	photon_1 = Photon.all.first
+	photon_2 = Photon.all.last
 
-  10.times{
-    sp.move
-  }
+	p Photon.all
 
-  datapacker = DataPacker.new
-  datapacker.add_data Spaceship
-  datapacker.add_data Photon
+	p photon_1
+	p photon_2
 
-  send_data datapacker.flush_data_to_json
+	p "After deletion"
 
-  begin
-    datapacker.unpack_data get_data
-  end until datapacker.available?
+	photon_1.delete
 
-  data = datapacker.flush_data
+	p Photon.all
 
-  Spaceship.read_data_for_all data
-  Photon.read_data_for_all data
-  p Spaceship.all
+
   Thread.kill(server_thread)
-end

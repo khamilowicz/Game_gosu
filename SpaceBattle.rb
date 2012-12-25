@@ -9,7 +9,7 @@ class SpaceBattle < Gosu::Window
     self.caption = "Gosu tutorial game"
     @name = name
 
-    @player = Spaceship.new(self,0,320,240)
+    @player = Spaceship.new(self,0,320,240, name)
     @player.status = 'master'
 
     @player_2 = Spaceship.new(self,0,320,240)
@@ -26,16 +26,14 @@ class SpaceBattle < Gosu::Window
 
   def update
 
-    unless @pause
       @player.keyboard self
 
       multiplayer
-      @player.move
-      @player_2.move
+      Spaceship.move
       Photon.move
+      Photon.hit Spaceship
       @space.move Spaceship
       @space.move Photon
-    end
 
   end
 
@@ -45,7 +43,7 @@ class SpaceBattle < Gosu::Window
     @datapacker.add_data Photon
 
     send_data @datapacker.flush_data_to_json
-		@all_data = get_data 
+    @all_data = get_data 
     @datapacker.unpack_data(@all_data)
 
     @all_data = @datapacker.flush_data

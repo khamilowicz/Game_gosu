@@ -14,10 +14,13 @@ class Spaceship < SpaceObject
   extend Datable::Classable
   include Datable::Instance
 
-  def initialize(window, vel=0.0, x=0.0, y=0.0)
+  attr_accessor :hitpoints, :name
+  def initialize(window, vel=0.0, x=0.0, y=0.0, name = 'player')
     super(window, "./img/spaceship.png", x, y, vel, 0.0, -90)
+    @name = name
     @maxVel = 5.0
     @block = false
+    @hitpoints = 3
   end
 
   def fire
@@ -32,8 +35,10 @@ class Spaceship < SpaceObject
     end
 
     if window.button_down? Gosu::KbSpace and not @block
-      fire 
-      @block = true
+      unless @block
+        fire 
+        @block = true
+      end
     end
 
     turn_left if window.button_down? Gosu::KbLeft or window.button_down? Gosu::GpLeft 
