@@ -5,6 +5,8 @@ require "./modules/Steerable.rb"
 require "./classes/spaceSocket.rb"
 require "./modules/datable.rb"
 require "./modules/keyboardable.rb"
+require "./modules/collidable.rb"
+require "./modules/Animated.rb"
 
 class Spaceship < SpaceObject
 
@@ -13,10 +15,13 @@ class Spaceship < SpaceObject
   extend Movable::Classable
   extend Datable::Classable
   include Datable::Instance
+	include Collidable
+	include Animated
 
   attr_accessor :hitpoints, :name
   def initialize(window, vel=0.0, x=0.0, y=0.0, name = 'player')
-    super(window, "./img/spaceship.png", x, y, vel, 0.0, -90)
+    #super(window, "./img/spaceship.png", x, y, vel, 0.0, -90)
+    super(window, "./img/yoshi.bmp", x, y, vel, 0.0, -90)
     @name = name
     @maxVel = 5.0
     @block = false
@@ -28,13 +33,16 @@ class Spaceship < SpaceObject
 	end
 
   def fire
-    Photon.new(@window, @x,@y,@angle)
+					dx = Gosu.offset_x(@angle, 20)
+					dy = Gosu.offset_y(@angle, 20)
+    Photon.new(@window, @x + dx  + velx,@y + dy + vely,@angle)
+
   end
 
   def keyboard window
 
-    if window.button_down? Gosu::KbP and not @block_p
-      p Photon.all
+    if window.button_down? Gosu::KbO and not @block_p
+      p Spaceship.all
       @block_p = true
     end
 
@@ -56,4 +64,8 @@ class Spaceship < SpaceObject
       @block = false
     end
   end
+
+	def to_s
+					super + "\t Hitpoints:\t #{hitpoints}\n"
+	end
 end

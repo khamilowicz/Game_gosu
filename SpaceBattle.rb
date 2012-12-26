@@ -12,7 +12,7 @@ class SpaceBattle < Gosu::Window
     @player = Spaceship.new(self,0,320,240, name)
     @player.status = 'master'
 
-    @player_2 = Spaceship.new(self,0,320,240)
+    @player_2 = Spaceship.new(self,0,420,240)
 
     @space = Space.new(self)
     Photon.set_default_window self
@@ -21,14 +21,14 @@ class SpaceBattle < Gosu::Window
     @block = false
     #@block_p = false
     @time_mem = 0.0
-    start_socket
+    #start_socket
   end
 
   def update
 
       @player.keyboard self
 
-      multiplayer
+      #multiplayer
       Spaceship.move
       Photon.move
       Photon.hit Spaceship

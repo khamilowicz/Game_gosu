@@ -13,6 +13,7 @@ class SpaceObject
     @window = window
     @x, @y, @z, @vel, @angle, @d_angle = x, y, z, vel, angle, d_angle
     @x_rel, @y_rel = @x, @y
+		@vel_outer = @angle_outer = 0.0
 
     @status ='slave'
     @image = Gosu::Image.new(window, image_path, true)

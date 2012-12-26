@@ -1,6 +1,7 @@
 require "./classes/spaceobject.rb"
 require "./modules/Movable.rb"
 require "./modules/datable.rb"
+require "./modules/collidable.rb"
 
 class Photon < SpaceObject
 
@@ -8,6 +9,7 @@ class Photon < SpaceObject
   extend Movable::Classable
   extend Datable::Classable
   include Datable::Instance
+	include Collidable
 
 
   def initialize(window, x=0,y=0,angle=0)
@@ -16,7 +18,7 @@ class Photon < SpaceObject
 
   def move
     super
-    unless x.between?(-500.0, 500.0) && y.between?(-500.0, 500.0)
+    unless x.between?(0, 1500.0) && y.between?(0.0, 1500.0)
       delete
     end
   end
